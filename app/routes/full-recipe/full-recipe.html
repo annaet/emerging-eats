@@ -1,0 +1,53 @@
+<div class="modal-body" id="modal-body">
+  <div class="col-sm-6">
+    <div class="recipe">
+      <div class="recipe-content">
+        <img src="images/{{recipe['recipe image']}}" />
+        <h4>{{recipe._id}}</h4>
+        <p class="light">{{recipe.flavour}}, {{recipe.regionality}}, {{recipe.seasonality}} dish</p>
+
+        <div class="recipe-times" style="border-bottom: 1px dotted white;">
+          <h5>Preparation:</h5>
+          <p class="light">{{recipe['prep time']}}</p>
+        </div>
+
+        <div class="recipe-times">
+          <h5>Cooking:</h5>
+          <p class="light">{{recipe['cooking time']}}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="recipe-ingredients">
+      <h3>Ingredients</h3>
+
+      <ul>
+        <li ng-repeat="ingredient in recipe.contains">
+          {{ingredient}}
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="col-sm-6">
+    <button class="btn close-btn" type="button" ng-click="cancel()">
+      <img src="images/cross.png" />
+    </button>
+
+    <div class="recipe-nutrition">
+      <img src="images/nutrition.png" width="100%" />
+    </div>
+
+    <div class="recipe-method">
+      <h3>Method</h3>
+
+      <ol>
+        <li ng-repeat="method in recipe.method">
+          {{method}}
+        </li>
+      </ol>
+    </div>
+  </div>
+
+  <button class="btn more-btn" type="button" style="width: calc(100% + 30px)" ng-click="ok()">View more meal ideas</button>
+</div>

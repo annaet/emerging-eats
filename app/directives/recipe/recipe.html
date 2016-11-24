@@ -1,0 +1,20 @@
+<div class="recipe">
+  <div class="recipe-content">
+    <img src="images/{{recipe['recipe image']}}" />
+    <h4>{{recipe._id}}</h4>
+    <p class="light">{{recipe.flavour}}, {{recipe.regionality}}, {{recipe.seasonality}} dish</p>
+
+    <div class="recipe-times" style="border-bottom: 1px dotted white;">
+      <h5>Preparation:</h5>
+      <p class="light">{{recipe['prep time']}}</p>
+    </div>
+
+    <div class="recipe-times">
+      <h5>Cooking:</h5>
+      <p class="light">{{recipe['cooking time']}}</p>
+    </div>
+  </div>
+  <button class="recipe-footer" ng-click="viewMeal()">
+    View meal idea
+  </button>
+</div>
