@@ -2,7 +2,8 @@
 
 angular.module('myApp', [
   'ui.router',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'pageslide-directive'
 ])
 
 .config(function($stateProvider, $urlRouterProvider, $locationProvider) {

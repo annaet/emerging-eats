@@ -2,6 +2,12 @@
 
 angular.module('myApp')
 
+.filter('capitalize', function() {
+  return function(input) {
+    return (!!input) ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() : '';
+  };
+})
+
 .controller('HomeCtrl', function($scope, $timeout, $http) {
   // var recipes = [{
   //   name: 'Italian Meatballs',
@@ -17,6 +23,39 @@ angular.module('myApp')
 
   $scope.conversation = [];
   $scope.placeholder = 'What kind of recipe are you looking for?';
+  $scope.checked = false;
+
+  $scope.possibleContext = {
+    time: {
+      ten: '10.png',
+      two: '14.png',
+      six: '18.png'
+    },
+    weather: {
+      rain: 'rain.svg',
+      sun: 'sun.svg',
+      hot: 'temperature.svg',
+      cold: 'thermometer.svg'
+    }
+  };
+
+  $scope.context = {
+    weather: 'rain',
+    time: 'ten'
+  };
+
+  $scope.selectContextDetail = function(key) {
+    $scope.showContextTitles = !$scope.showContextTitles;
+    $scope.showContextDetail = key;
+    console.log('show detail');
+  };
+
+  $scope.addContext = function(key) {
+    $scope.context[$scope.showContextDetail] = key;
+    $scope.showContextDetail = false;
+    console.log($scope.context);
+    console.log($scope.checked);
+  };
 
   var requirements = {
     'size description': 'Who are you cooking for?',

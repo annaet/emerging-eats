@@ -163,7 +163,8 @@ html, body, .ab-container {
 /* Bootstrap overrides */
 
 a {
-  color: #000;
+  color: #fff;
+  text-decoration: underline;
 }
 
 a:focus, a:hover {
@@ -316,6 +317,9 @@ strong {
 
 h4 {
   margin-bottom: 0;
+  width: 60px;
+  text-align: right;
+  margin-right: 15px;
 }
 
 h5 {
@@ -393,4 +397,76 @@ h5 {
   margin: -15px;
   margin-top: 30px;
   border-radius: 0;
+}
+
+/* Pageslide */
+
+.context-button {
+  background: #4B620E;
+  border: 4px solid white;
+  border-bottom: none;
+  display: inline-block;
+  color: white;
+  padding: 5px 15px;
+  margin-top: -35px;
+  margin-right: 100px;
+  height: 35px;
+  float: right;
+  cursor: pointer;
+}
+
+.context-menu {
+  background: #4B620E;
+  border: 4px solid white;
+  border-bottom: none;
+  width: calc(100% - 200px);
+  margin: 0 100px;
+  height: 100%;
+  color: white;
+  padding: 15px 15px 5px 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.context-palette, .context-icons, .add-context-icons, .context-titles, .context-details {
+  display: flex;
+}
+
+.all-context {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.icon-attr {
+  font-size: 10px;
+  bottom: 0;
+  text-align: right;
+}
+
+.icon-container {
+  height: 55px;
+  background: white;
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.icon {
+  width: 55px;
+  background: white;
+  padding: 10px;
+}
+
+.context-title {
+  min-width: 55px;
+  padding: 0 20px;
+  height: 55px;
+  background: white;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
 }

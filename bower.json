@@ -10,6 +10,7 @@
     "bootstrap": "^3.3.7",
     "html5-boilerplate": "^5.3.0",
     "angular-ui-router": "0.3.1",
-    "angular-bootstrap": "^2.2.0"
+    "angular-bootstrap": "^2.2.0",
+    "angular-pageslide-directive": "^2.1.2"
   }
 }

@@ -47,4 +47,49 @@
       <button class="btn" ng-click="create()">Create a recipe</button>
     </div>
   </div>
+
+  <pageslide ps-open="checked" ps-side="bottom" ps-size="100px" ps-click-outside="false">
+    <div class="context-button" ng-click="checked = !checked">
+      Change Context
+    </div>
+
+    <div class="context-menu">
+      <div class="context-palette">
+        <h4>Watson thinks</h4>
+
+        <div class="all-context">
+          <div class="context-icons">
+            <div ng-repeat="(key, value) in context">
+              <div class="icon-container">
+                <img class="icon" ng-src="images/icons/{{possibleContext[key][value]}}" />
+              </div>
+            </div>
+          </div>
+
+          <div class="add-context-icons">
+            <div ng-show="showContextDetail" class="context-details">
+              <div ng-repeat="(key, value) in possibleContext[showContextDetail]">
+                <div class="icon-container" ng-click="addContext(key)" style="cursor: pointer">
+                  <img class="icon" ng-src="images/icons/{{value}}" />
+                </div>
+              </div>
+            </div>
+
+            <div ng-show="showContextTitles" class="context-titles">
+              <div ng-repeat="(key, values) in possibleContext" class="context-title" ng-click="selectContextDetail(key)" style="cursor: pointer">
+                {{key | capitalize}}
+              </div>
+            </div>
+
+            <div class="icon-container" style="cursor: pointer">
+              <img ng-click="showContextTitles = !showContextTitles" class="icon" ng-src="images/icons/add.svg" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="icon-attr">Icons made by <a href="http://www.flaticon.com/authors/retinaicons" title="Retinaicons">Retinaicons</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+    </div>
+  </pageslide>
 </div>
