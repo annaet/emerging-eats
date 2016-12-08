@@ -9,52 +9,40 @@ angular.module('myApp')
 })
 
 .controller('HomeCtrl', function($scope, $timeout, $http) {
-  // var recipes = [{
-  //   name: 'Italian Meatballs',
-  //   desc: 'With spaghetti and salad',
-  //   preparation: '10 minutes',
-  //   cooking: '30 - 40 minutes',
-  //   img: 'images/meatballs.jpg',
-  //   ingredients: ['Maggi', 'Beef', 'Red onion'],
-  //   method: ['Preheat', 'Cook', 'Serve']
-  // }];
-
-  // var interpretation = ['family', 'quick', 'beef', 'winter'];
-
   $scope.conversation = [];
   $scope.placeholder = 'What kind of recipe are you looking for?';
   $scope.checked = false;
 
   $scope.possibleContext = {
     time: {
-      ten: '10.png',
-      two: '14.png',
-      six: '18.png'
+      slow: '10.png',
+      medium: '14.png',
+      quick: '18.png'
     },
-    weather: {
-      rain: 'rain.svg',
-      sun: 'sun.svg',
-      hot: 'temperature.svg',
-      cold: 'thermometer.svg'
+    season: {
+      winter: 'winter.svg',
+      spring: 'spring.svg',
+      summer: 'summer.svg',
+      autumn: 'autumn.svg'
+    },
+    size: {
+      family: 'joy.svg'
     }
   };
 
   $scope.context = {
-    weather: 'rain',
-    time: 'ten'
+    season: 'winter',
+    time: 'slow'
   };
 
   $scope.selectContextDetail = function(key) {
     $scope.showContextTitles = !$scope.showContextTitles;
     $scope.showContextDetail = key;
-    console.log('show detail');
   };
 
   $scope.addContext = function(key) {
     $scope.context[$scope.showContextDetail] = key;
     $scope.showContextDetail = false;
-    console.log($scope.context);
-    console.log($scope.checked);
   };
 
   var requirements = {
@@ -76,9 +64,17 @@ angular.module('myApp')
     'style': 'flavour'
   };
 
+  var contextPropertyMap = {
+    'season': 'season',
+    'time': 'time description',
+    'size': 'size description',
+  };
+
   var foundReqs = {};
   var recipes;
-  var recipesUrl = 'http://emerging-eats-ce.mybluemix.net/ce-store/stores/DEFAULT/concepts/recipe/instances?style=normalised';
+  // var ceStore = 'http://localhost:8080/ce-store/';
+  var ceStore = 'http://emerging-eats-ce.mybluemix.net/ce-store/';
+  var recipesUrl = ceStore + 'concepts/recipe/instances?style=normalised';
   $http.get(recipesUrl).then(function(response) {
     console.log(response);
     recipes = response.data;
@@ -89,7 +85,7 @@ angular.module('myApp')
       question: $scope.question
     };
 
-    var interpreterUrl = 'http://emerging-eats-ce.mybluemix.net/ce-store/special/hudson/interpreter';
+    var interpreterUrl = ceStore + 'special/hudson/interpreter';
     $http.post(interpreterUrl, $scope.question).then(function(response) {
       if (response && response.data) {
         var interpretations = response.data.interpretations;
@@ -99,22 +95,29 @@ angular.module('myApp')
 
           var positive = false;
 
-          insts.forEach(function(inst) {
-            var ents = inst.entities;
-            ents.forEach(function(ent) {
-              ent._concept.forEach(function(concept) {
-                if (requirements[concept] || options[concept]) {
-                  foundReqs[concept] = ent._id;
+          for (var key in $scope.context) {
+            var prop = contextPropertyMap[key];
+            foundReqs[prop] = $scope.context[key];
+          }
+
+          if (insts) {
+            insts.forEach(function(inst) {
+              var ents = inst.entities;
+              ents.forEach(function(ent) {
+                ent._concept.forEach(function(concept) {
+                  if (requirements[concept] || options[concept]) {
+                    foundReqs[concept] = ent._id;
+                  }
+                });
+
+                // hard coded use case for winter
+                if (ent._concept.indexOf('positive response') > -1) {
+                  positive = true;
+                  foundReqs.season = 'winter';
                 }
               });
-
-              // hard coded use case for winter
-              if (ent._concept.indexOf('positive response') > -1) {
-                positive = true;
-                foundReqs.season = 'winter';
-              }
             });
-          });
+          }
           console.log(foundReqs);
 
           // Check requirements have been filled
@@ -130,8 +133,13 @@ angular.module('myApp')
             recipes.forEach(function(recipe) {
               var found = true;
 
+              if (!Array.isArray(recipe.flavour)) {
+                recipe.flavour = [recipe.flavour];
+              }
+
               for (var req in foundReqs) {
                 var property = propertyMap[req];
+
                 if (Array.isArray(recipe[property])) {
                   var foundProperty = false;
                   recipe[property].forEach(function(prop) {

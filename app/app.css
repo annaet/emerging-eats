@@ -220,7 +220,7 @@ small {
   background: #325C80;
   color: white;
   padding: 10px 50px;
-  max-height: calc(100% - 50px);
+  max-height: calc(100% - 150px);
   overflow: scroll;
 }
 
@@ -317,9 +317,6 @@ strong {
 
 h4 {
   margin-bottom: 0;
-  width: 60px;
-  text-align: right;
-  margin-right: 15px;
 }
 
 h5 {
@@ -469,4 +466,10 @@ h5 {
   justify-content: center;
   align-items: center;
   margin-right: 10px;
+}
+
+.context-desc {
+  width: 60px;
+  text-align: right;
+  margin-right: 15px;
 }

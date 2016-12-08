@@ -35,7 +35,8 @@
                 <img class="watson" src="images/watson-logo.png" />
                 <span ng-if="qa.answer.recipes.length === 0">I couldn't create any recipes.</span>
                 <span ng-if="qa.answer.recipes.length !== 0">
-                  Here <span ng-if="qa.answer.recipes.length !== 1">are</span><span ng-if="qa.answer.recipes.length === 1">is</span> {{qa.answer.recipes.length}} meal<span ng-if="qa.answer.recipes.length !== 1">s</span> relating to <span ng-repeat="interpretation in qa.answer.interpretation track by $index"><strong>{{interpretation | lowercase}}</strong><span ng-if="$index < qa.answer.interpretation.length - 1">, </span></span>
+                  I think you'll like <span ng-if="qa.answer.recipes.length !== 1">these {{qa.answer.recipes.length}}</span><span ng-if="qa.answer.recipes.length === 1">this</span> meal<span ng-if="qa.answer.recipes.length !== 1">s</span>.
+                  <!-- <span ng-if="qa.answer.recipes.length !== 1">s</span> relating to <span ng-repeat="interpretation in qa.answer.interpretation track by $index"><strong>{{interpretation | lowercase}}</strong><span ng-if="$index < qa.answer.interpretation.length - 1">, </span></span> -->
                 </span>
               </p>
             </div>
@@ -50,17 +51,17 @@
 
   <pageslide ps-open="checked" ps-side="bottom" ps-size="100px" ps-click-outside="false">
     <div class="context-button" ng-click="checked = !checked">
-      Change Context
+      Update Context
     </div>
 
     <div class="context-menu">
       <div class="context-palette">
-        <h4>Watson thinks</h4>
+        <h4 class="context-desc">Watson thinks</h4>
 
         <div class="all-context">
           <div class="context-icons">
             <div ng-repeat="(key, value) in context">
-              <div class="icon-container">
+              <div class="icon-container" uib-tooltip="{{key | capitalize}} - {{value | capitalize}}">
                 <img class="icon" ng-src="images/icons/{{possibleContext[key][value]}}" />
               </div>
             </div>
@@ -69,7 +70,7 @@
           <div class="add-context-icons">
             <div ng-show="showContextDetail" class="context-details">
               <div ng-repeat="(key, value) in possibleContext[showContextDetail]">
-                <div class="icon-container" ng-click="addContext(key)" style="cursor: pointer">
+                <div class="icon-container" ng-click="addContext(key)" style="cursor: pointer" uib-tooltip="{{showContextDetail | capitalize}} - {{key | capitalize}}">
                   <img class="icon" ng-src="images/icons/{{value}}" />
                 </div>
               </div>
@@ -81,8 +82,8 @@
               </div>
             </div>
 
-            <div class="icon-container" style="cursor: pointer">
-              <img ng-click="showContextTitles = !showContextTitles" class="icon" ng-src="images/icons/add.svg" />
+            <div class="icon-container" style="cursor: pointer" uib-tooltip="Add context">
+              <img ng-click="showContextDetail = false; showContextTitles = !showContextTitles" class="icon" ng-src="images/icons/add.svg" />
             </div>
           </div>
         </div>

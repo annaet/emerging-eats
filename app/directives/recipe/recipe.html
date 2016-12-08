@@ -1,8 +1,10 @@
 <div class="recipe">
   <div class="recipe-content">
-    <img src="images/{{recipe['recipe image']}}" />
+    <img src="images/{{recipe.image}}" />
     <h4>{{recipe._id}}</h4>
-    <p class="light">{{recipe.flavour}}, {{recipe.regionality}}, {{recipe.seasonality}} dish</p>
+    <p class="light">
+      <span ng-repeat="flavour in recipe.flavour track by $index">{{flavour}}<span ng-if="$index < recipe.flavour.length - 2">, </span><span ng-if="$index === recipe.flavour.length - 2"> and </span></span>
+    </p>
 
     <div class="recipe-times" style="border-bottom: 1px dotted white;">
       <h5>Preparation:</h5>
